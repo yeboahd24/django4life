@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static '/css/style.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>django4life</title>
+  </head>
+  <body>
+    <div
+      style="
+        margin: 0px auto 198px auto;
+        text-align: center;
+        font-family: 'Roboto', serif;
+        color: #242424;
+      "
+    >
+      <div style="max-width: 300px; max-height: 300px; margin: 0 auto">
+        <img
+          src="{% static '/images/logo_transparent.webp' %}"
+          alt="logo"
+          style="object-fit: cover; width: 300px; height: 300px"
+        />
+      </div>
+      <h1 style="margin-bottom: 25px">Welcome to the community django4life!</h1>
+      <p>
+        You will receive tips, lessons and answers to the most common mistakes
+        from us .
+      </p>
+      <p>You will definitely like it here !</p>
+      <h1 style="margin-top: 55px">
+        <a href="{% url 'home' %}" style="color: #03c4eb">← Back to blog</a>
+      </h1>
+    </div>
+  </body>
+</html>

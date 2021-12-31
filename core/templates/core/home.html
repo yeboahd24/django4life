@@ -1,0 +1,52 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="wrapper"> 
+  <div class="content">
+    {% for article in page_obj %}
+    <div class="article">
+      {% if article.image %}
+      <a href="{% url 'article' article.title %}" class="article__img">
+        <img src="{% static 'images/' request.user.id %}/{{ article.image }}" alt="article image">
+      </a>
+      {% endif %}
+      <div class="article__content">
+        <div class="article__tags" data-tags="{{ article.id }}">
+          {% for tag in article.tags.all %}
+          <span class="article__tag"><a href="{% url 'tag' tag %}">{{ tag }}</a>{% if forloop.counter != article.tags.all.count %} /{% endif %}</span>
+          {% endfor %}
+        </div>
+        <a href="{% url 'article' article.title %}" class="article__title">{{ article.title }}</a>
+        <div class="article__text">{{ article.short_description }}</div>
+      </div>
+    </div>
+    {% endfor %}
+    
+    <div class="pagination">
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="pagination__next">← <span>Previous page </span></a>
+      {% endif %}
+
+      <div class="pagination__main">
+        {% if page_obj.paginator.num_pages != 1 %}
+          {% if page_obj.number != page_obj.paginator.num_pages %}
+          <a href="?page={{ page_obj.number }}" style="color: #7533cc;">{{ page_obj.number  }}</a>
+          ... 
+          <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+          {% else %}
+          <a href="?page=1">1</a>
+          ...  
+          <a href="?page={{ page_obj.paginator.num_pages }}" style="color: #7533cc;"> {{ page_obj.paginator.num_pages }}</a>
+          {% endif %}
+        {% endif %}
+      </div>
+
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}" class="pagination__next"><span>Next page </span> →</a>
+        {% endif %}
+    </div>
+  </div>
+  {% include 'core/sidebar.html' %}
+</div>
+{% endblock %}

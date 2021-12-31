@@ -1,0 +1,35 @@
+{% load static %}
+<header class="header">
+  <div class="container">
+    <div class="header__body">
+      <a href="{% url 'home' %}" class="header__logo">
+        <img src="{% static '/images/logo_transparent.png' %}" alt="logo" />
+      </a>
+      <div class="header__burger">
+        <span></span>
+      </div>
+      <nav class="header__menu">
+        <ul class="header__list">
+          <li>
+            <a href="{% url 'tag' 'python' %}" class="header__link">Lessons</a>
+          </li>
+          <li>
+            <a href="{% url 'tag' 'django' %}" class="header__link">
+              Chips Django
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'tag' 'Задачи' %}" class="header__link">Tasks</a>
+          </li>
+          <li>
+            <a href="{% url 'tag' 'Ошибки' %}" class="header__link">Errors</a>
+          </li>
+          <li>
+            <a href="#" class="header__link header__link_l">Django Courses</a>
+          </li>
+        </ul>
+      </nav>
+      <a href="#" class="header__courses"><span>Django Courses</span></a>
+    </div>
+  </div>
+</header>

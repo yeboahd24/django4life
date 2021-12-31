@@ -1,0 +1,47 @@
+{% load static %}
+<div class="sidebar sidebar-item">
+  <a href="https://t.me/py_discussion" target="_blank" class="telegram-btn">
+    <span class="telegram-btn__text">Read in Telegram</span>
+  </a>
+  <form class="sidebar__search" method="GET">
+    {{ articles_filter.form.title }}
+    <button type="submit">
+      <img src="{% static 'images/loupe.webp' %}" alt="loup">
+    </button>
+  </form>
+  <div class="sidebar__articles articles-sidebar articles-sidebar__pupular">
+    <div class="articles-sidebar__header">Popular </div>
+    <ul class="articles-sidebar__body">
+      {% for article in popular_articles %}
+      <li class="articles-sidebar__title">
+        <b class="articles-sidebar__tags">
+          {% for tag in article.tags.all %}
+          <a href="{% url 'tag' tag %}">{{ tag }}</a>{% if forloop.counter != article.tags.all.count %}, {% else %}: {% endif %}
+          {% endfor %}
+        </b>
+        <a href="{% url 'article' article.title %}">{{ article.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="sidebar__articles articles-sidebar articles-sidebar__recent">
+    <div class="articles-sidebar__header">RECENT </div>
+    <ul class="articles-sidebar__body">
+      {% for article in last_articles %}
+      <li class="articles-sidebar__title"><a href="{% url 'article' article.title %}">{{ article.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="sidebar__tricks tricks-sidebar">
+    <div class="tricks-sidebar__subtitle">— A series of tricks on  Django —</div>
+    <div class="tricks-sidebar__title">🐍Django Tricks💌</div>
+    <div class="tricks-sidebar__img">
+      <img src="{% static 'images/tricks-img.webp' %}" alt="tricks">
+    </div>
+    <form method="POST">
+      {% csrf_token %}
+      {{ email_form }}
+      <button class="tricks-sidebar__btn" type="submit">Django Tricks»</button>        
+    </form>
+    <div class="tricks-sidebar__important">🔒 No Spam. Unsubscribe at any time. </div>
+  </div>
+</div>

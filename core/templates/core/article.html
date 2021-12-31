@@ -1,0 +1,78 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+<style>
+  .wrapper-item {
+  display: grid;
+  grid-template-areas: 'item sidebar';
+}
+
+@media (max-width: 920px) {
+    .wrapper-item {
+      grid-template-areas: 'item item'
+                         'sidebar sidebar';
+      
+    }
+
+    .content-item {
+      border-right: none;
+      padding: 0px 0px 0px 0px;
+    }
+
+    .sidebar-item {
+      padding: 60px 0px 0px 0px;
+    }
+
+    .sidebar-item .telegram-btn {
+      width: 100%;
+    }
+  }
+
+.content-item {
+  grid-area: item;
+}
+</style>
+
+{% block content %}
+{% block extrahead %}
+  <script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>
+  {{ block.super }}
+  {% endblock %}
+  <div class="wrapper wrapper-item">
+    <div class="content content-item">
+      <div class="item">
+        <div class="item__header">
+          <div class="item__title">{{ article.title }}</div>
+          <div class="item__date"><b>Published by </b> {{ article.date_published }}</div>
+        </div>
+        <div class="item__tags">
+          {% for tag in article.tags.all %}
+          <a href="{% url 'tag' tag %}">{{ tag }}</a> {% if forloop.counter != article.tags.all.count %} /{% endif %}
+          {% endfor %}
+        </div>
+        <div class="item__content" style="max-width: 800px;">
+          {{ article.description | safe }}
+        </div>
+        <div class="item__telegram telegram-item">
+          <div class="telegram-item__cross">×</div>
+          <div class="telegram-item__body">
+            <div class="telegram-item__img">
+              <img src="{% static 'images/dj2.webp' %}" alt="django">
+            </div>
+            <div class="telegram-item__content">
+              <div class="telegram-item__h1"> Want a code from an article or discuss it </div>
+              <div class="telegram-item__text">Subscribe to us in Telegram </div>
+              <a class="telegram-item__subscribe" href="" target="_blank">Subscribe to </a>
+            </div>
+          </div>
+        </div>
+        <div class="item__pagination">
+          <div class="item__nav">Previous ARTICLE <br> <a href="{% url 'article' last_article %}">{{ last_article }}</a></div>
+          <div class="item__hr"></div>
+          <a href="{% url 'home' %}" class="item__back">← Back to blog </a>
+        </div>
+      </div>
+    </div>
+    {% include 'core/sidebar-article.html' %}
+  </div>
+{% endblock %}
